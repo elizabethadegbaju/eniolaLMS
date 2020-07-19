@@ -31,15 +31,10 @@ class MessageFilter(django_filters.FilterSet):
 
 
 class CheckoutFilter(django_filters.FilterSet):
-    # matric_no = django_filters.CharFilter(field_name='student__matric_number', lookup_expr='icontains',
-    #                                       label='Student\'s Matric Number')
     student_f_name = django_filters.CharFilter(field_name="user__first_name", lookup_expr='icontains',
                                                label='User\'s First Name')
     student_l_name = django_filters.CharFilter(field_name="user__last_name", lookup_expr='icontains',
                                                label='User\'s Last Name')
-
-    # reserved = django_filters.BooleanFilter(field_name='reserved')
-    # collected = django_filters.BooleanFilter(field_name='')
 
     class Meta:
         model = Checkout

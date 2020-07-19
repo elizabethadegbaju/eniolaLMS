@@ -20,11 +20,38 @@
                     <div class="col-lg-7">
                         <h4>{{ book.title }}</h4>
                         <h6 class="text-muted mb-2">{{ book.author }}</h6>
-                        <p>{{ book.description }}<br><br></p><a
-                            class="btn btn-outline-dark btn-block"
-                            role="button" href="
-{% url 'reserve' book.id %}">Reserve
-                        Book</a></div>
+                        <p>{{ book.description }}<br><br></p>
+
+                        {% if user.is_staff %}
+                            <a class="btn btn-outline-dark btn-block"
+                               role="button"
+                               href="{% url 'history'  book.id %}">
+                                <i class="icon-notebook"></i>View History
+                            </a>
+                            <a class="btn btn-outline-dark btn-block"
+                               role="button"
+                               href="{% url 'edit_book'  book.id %}">
+                                <i class="icon-pencil"></i>Edit Details
+                            </a>
+                        {% else %}
+                            {% if available %}
+                                <a class="btn btn-outline-dark btn-block"
+                                   role="button"
+                                   href="{% url 'reserve'  book.id %}">
+                                    <i class="icon-lock"></i>Reserve Book
+                                </a>
+                            {% else %}
+                                <a class="btn btn-outline-dark btn-block"
+                                   role="button" disabled=""
+                                   href="{% url 'reserve'  book.id %}">
+                                    <i class="icon-lock"></i>Reserve Book
+                                </a>
+                                <h6 class="text-secondary"><em>This book is
+                                    currently not available for pick
+                                    up. Check back tomorrow.</em></h6>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

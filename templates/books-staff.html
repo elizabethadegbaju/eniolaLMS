@@ -10,9 +10,11 @@
         <div class="breadcrumb-holder">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="
-{% url 'dashboard' %}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">View Books in Library
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        View Books in Library
                     </li>
                 </ul>
             </div>
@@ -48,8 +50,9 @@
                                             </div>
                                         </div>
                                         <button type="submit"
-                                                class="btn btn-info form-control mb-5">
-                                            <span class="icon-magnifier"></span>
+                                                class="btn btn-primary
+                                                form-control mb-5">
+                                            <span class="fa fa-search"></span>
                                             Search
                                         </button>
                                     </div>
@@ -62,18 +65,18 @@
                                     <div class="col-12 col-md-6 col-lg-4">
                                         <div class="card">
                                             <div class="card-body">
-                                                <a class="stretched-link"
-                                                   href="{% url 'book' book.id %}">
-                                                    <div class="d-flex
+                                                <div class="d-flex
                                                     justify-content-center
                                                     align-items-center">
+                                                    <a class="stretched-link"
+                                                       href="{% url 'book' book.id %}">
                                                         <img
                                                                 src="{{ book.image.url }}"
                                                                 style="height: 100px;">
-                                                    </div>
-                                                </a>
+                                                    </a>
+                                                </div>
                                                 <h4 class="text-center
-                                                    card-title">
+                                                    card-title mt-3">
                                                     {{ book.title }}</h4>
                                                 <h6 class="text-center text-muted card-subtitle mb-2">
                                                     {{ book.author }}</h6>

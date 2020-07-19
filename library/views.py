@@ -31,8 +31,8 @@ def dashboard(request):
         two_weeks_ago = today - timedelta(weeks=2)
 
         # number of students that registered in the last seven days:
-        new_students = Student.objects.filter(
-            user__date_joined__range=(seven_days_ago, today)).count()
+        new_students = User.objects.filter(
+            date_joined__range=(seven_days_ago, today), is_staff=False).count()
 
         # number of book reservations in the last five days:
         reservations = Checkout.objects.filter(reserved=True).filter(
@@ -115,9 +115,6 @@ def register(request):
         user.email = email
         user.is_active = True
         user.save()
-        # student = Student.objects.create(matric_number=matric_number,
-        #                                  program=program, user=user)
-        # student.save()
         return redirect('login')
 
 
@@ -254,12 +251,6 @@ def defaulters(request):
     return render(request, 'defaulters.html', context={'students': students})
 
 
-# def messages(request):
-#     messages_list = Message.objects.order_by('-time')
-#     messages_filter = MessageFilter(request.GET, queryset=messages_list)
-#     return render(request, 'messages.html',
-#                   context={'filter': messages_filter})
-
 @login_required
 def add_author(request):
     name = request.POST['name']
@@ -289,16 +280,13 @@ def history(request, pk):
 @login_required
 def update(request, pk):
     entry = Checkout.objects.get(id=pk)
-    reserved = request.POST['reserved']
-    collected = request.POST['collected']
-    closed = request.POST['closed']
-
-    if (reserved == 'on') & (entry.reserved != True):
+    if "reserved" in request.POST:
         entry.reserve()
-    if (collected == 'on') & (entry.collected != True):
+    if "collected" in request.POST:
         entry.collect()
-    if (closed == 'on') & (entry.closed != True):
+    if "closed" in request.POST:
         entry.close()
+
     entry.save()
     return redirect(history, entry.book.id)
 
