@@ -1,0 +1,153 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}
+    Books | EduLine Dashboard
+{% endblock %}
+{% block main %}
+    <div class="page">
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-holder">
+            <div class="container-fluid">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="
+{% url 'dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">View Books in Library
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <section class="forms">
+            <div class="container-fluid">
+                <!-- Page Header-->
+                <header>
+                    <h1 class="h3 display">Books </h1>
+                </header>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-none d-md-block">
+                                <form method="get">
+                                    <div class="filters">
+                                        <div class="form-group">
+                                            {{ filter.form.title.label_tag }}
+                                            {% render_field filter.form.title class="form-control" %}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ filter.form.author.label_tag }}
+                                            {% render_field filter.form.author class="form-control" %}
+                                        </div>
+                                        <div class="form-group">
+                                            {{ filter.form.category.label_tag }}
+                                            <div>
+                                                {% for choice in filter.form.category %}
+                                                    <label class="checkbox-inline">
+                                                        {{ choice.tag }} {{ choice.choice_label }}
+                                                    </label>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <button type="submit"
+                                                class="btn btn-info form-control mb-5">
+                                            <span class="icon-magnifier"></span>
+                                            Search
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row no-gutters">
+                                {% for book in books %}
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a class="stretched-link"
+                                                   href="{% url 'book' book.id %}">
+                                                    <div class="d-flex
+                                                    justify-content-center
+                                                    align-items-center">
+                                                        <img
+                                                                src="{{ book.image.url }}"
+                                                                style="height: 100px;">
+                                                    </div>
+                                                </a>
+                                                <h4 class="text-center
+                                                    card-title">
+                                                    {{ book.title }}</h4>
+                                                <h6 class="text-center text-muted card-subtitle mb-2">
+                                                    {{ book.author }}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="text-center">
+                                        <h5 class="text-secondary m-4">
+                                            Sorry, no books match your
+                                            request. Check
+                                            back
+                                            tomorrow.</h5>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <nav>
+                                {% if books.has_other_pages %}
+                                    <ul class="pagination">
+                                        {% if books.has_previous %}
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                   href="?page={{ books.previous_page_number }}"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true">«</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link"
+                                                   href="#"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true">«</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% for page_number in books.paginator.page_range %}
+                                            {% if books.number == page_number %}
+                                                <li class="page-item active">
+                                                    <a class="page-link"
+                                                       href="?page={{ page_number }}">{{ page_number }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item"><a
+                                                        class="page-link"
+                                                        href="?page={{ page_number }}">{{ page_number }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if books.has_next %}
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                   href="?page={{ books.next_page_number }}"
+                                                   aria-label="Next">
+                                                    <span aria-hidden="true">»</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link"
+                                                   href="#"
+                                                   aria-label="Next">
+                                                    <span aria-hidden="true">»</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+
+                                {% endif %}
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

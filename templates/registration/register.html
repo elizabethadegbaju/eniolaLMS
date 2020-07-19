@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Cloud Based Library Management System</title>
+    <meta name="description"
+          content="This is a cloud based library management system developed to provide an organized atmosphere for library activities. It has a dashboard for students and another for the librarian.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet"
+          href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'fonts/fontawesome5-overrides.min.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+    <style>
+        .register-photo .image-holder {
+            display: table-cell;
+            width: auto;
+            background: url({% static 'img/meeting.jpg' %}) 0 0/cover
+        }
+    </style>
+</head>
+
+<body>
+<div class="register-photo">
+    <div class="form-container">
+        <div class="image-holder"></div>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <h2 class="text-center"><strong>Create</strong> an account</h2>
+            <div class="form-group"><input class="form-control" type="text"
+                                           name="fName"
+                                           placeholder="First Name"></div>
+            <div class="form-group"><input class="form-control" type="text"
+                                           name="lName"
+                                           placeholder="Last Name"></div>
+            <div class="form-group"><input class="form-control" type="email"
+                                           name="email" placeholder="Email">
+            </div>
+            <div class="form-group"><input class="form-control" type="text"
+                                           name="username"
+                                           placeholder="Username"></div>
+            <div class="form-group"><input class="form-control" type="password"
+                                           name="password"
+                                           placeholder="Password"></div>
+            <div class="form-group">
+                <div class="form-check"><label class="form-check-label"><input
+                        class="form-check-input" type="checkbox">I agree to the
+                    terms and conditions.</label></div>
+            </div>
+            <div class="form-group"><button class="btn btn-primary btn-block"
+                                       type="submit">Sign
+                Up</button></div>
+            <a class="already" href="{% url 'login' %}">You already have an
+                account?
+                Login here.</a></form>
+    </div>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+<script src="{% static 'js/script.min.js' %}"></script>
+</body>
+
+</html>

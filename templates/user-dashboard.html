@@ -1,0 +1,166 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+{% block styles %}
+    <style>
+        body {
+            background-color: #f4476b !important;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center" style="margin: 30px;color: #ffffff;">Welcome back,
+        {{ user.first_name }}!</h1>
+    <div style="margin-top: 40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-12">
+                    <div>
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="nav-item"><a class="nav-link active"
+                                                    role="tab"
+                                                    data-toggle="tab"
+                                                    href="#tab-1"
+                                                    style="font-size: 24px;">Reserved
+                                Books<i class="fas fa-tags"
+                                        style="margin-left: 10px;"></i></a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" role="tab"
+                                                    data-toggle="tab"
+                                                    href="#tab-2"
+                                                    style="font-size: 24px;">Collected
+                                Books<i class="fas fa-clipboard-check"
+                                        style="margin-left: 10px;"></i></a>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" role="tab"
+                                                    data-toggle="tab"
+                                                    href="#tab-3"
+                                                    style="font-size: 24px;">Overdue
+                                Books<i class="fa fa-clock-o"
+                                        style="margin-left: 10px;"></i></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" role="tabpanel"
+                                 id="tab-1" style="padding-top: 20px;">
+                                <div class="row" data-aos="fade-up"
+                                     style="margin-bottom: 10px;">
+                                    {% for item in pending_history %}
+                                        {% if item.reserved and not item.collected %}
+                                            <div class="col-lg-3">
+                                                <div class="card"
+                                                     data-bs-hover-animate="pulse">
+                                                    <div class="card-body">
+                                                        <a class="stretched-link"
+                                                           href="
+{% url 'book' item.book.id %}">
+                                                            <div class="d-flex justify-content-center align-items-center"
+                                                                 style="height: 100px;">
+                                                                <img
+                                                                        src="{{ item.book.image.url }}"
+                                                                        style="height: 100%;">
+                                                            </div>
+                                                        </a>
+                                                        <h4
+                                                                class="text-center card-title">{{ item.book.title }}</h4>
+                                                        <h6 class="text-center text-muted card-subtitle mb-2">
+                                                            {{ item.book.author }}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% empty %}
+                                        <div class="text-center">
+                                            <h5 class="text-white m-4">
+                                                Check our catalogue of books to
+                                                get
+                                                started.</h5>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="row" data-aos="fade"
+                                     style="margin-bottom: 10px;">
+                                </div>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="tab-2"
+                                 style="padding-top: 20px;">
+                                <div class="row" data-aos="fade-up"
+                                     style="margin-bottom: 10px;">
+                                    {% for item in pending_history %}
+                                        {% if item.collected %}
+                                            <div class="col-lg-3">
+                                                <div class="card"
+                                                     data-bs-hover-animate="pulse">
+                                                    <div class="card-body">
+                                                        <a class="stretched-link"
+                                                           href="{% url 'book' item.book.id %}">
+                                                            <div class="d-flex justify-content-center align-items-center"
+                                                                 style="height: 100px;">
+                                                                <img
+                                                                        src="{{ item.book.image.url }}"
+                                                                        style="height: 100%;">
+                                                            </div>
+                                                        </a>
+                                                        <h4
+                                                                class="text-center card-title">{{ item.book.title }}</h4>
+                                                        <h6 class="text-center text-muted card-subtitle mb-2">
+                                                            {{ item.book.author }}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% empty %}
+                                        <div class="text-center">
+                                            <h5 class="text-white m-4">
+                                                Check our catalogue of books to
+                                                get
+                                                started.</h5>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                            <div class="tab-pane" role="tabpanel" id="tab-3"
+                                 style="padding-top: 20px;">
+                                <div class="row" data-aos="fade-up"
+                                     style="margin-bottom: 10px;">
+                                    {% for item in pending_history %}
+                                        {% if item.overdue %}
+                                            <div class="col-lg-3">
+                                                <div class="card"
+                                                     data-bs-hover-animate="pulse">
+                                                    <div class="card-body">
+                                                        <a class="stretched-link"
+                                                           href="{% url 'book' item.book.id %}">
+                                                            <div class="d-flex justify-content-center align-items-center"
+                                                                 style="height: 100px;">
+                                                                <img
+                                                                        src="{{ item.book.image.url }}"
+                                                                        style="height: 100%;">
+                                                            </div>
+                                                        </a>
+                                                        <h4
+                                                                class="text-center card-title">{{ item.book.title }}</h4>
+                                                        <h6 class="text-center text-muted card-subtitle mb-2">
+                                                            {{ item.book.author }}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% empty %}
+                                        <div class="text-center">
+                                            <h5 class="text-white m-4">
+                                                Check our catalogue of books to
+                                                get
+                                                started.</h5>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
