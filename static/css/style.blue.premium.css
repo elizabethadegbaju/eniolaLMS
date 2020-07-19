@@ -4434,9 +4434,9 @@ STYLE SWITCHER FOR DEMO
 }
 
 .btn-primary:hover {
-    color: color-yiq(#227bbc);
-    background-color: #227bbc;
-    border-color: #2074b1;
+    color: color-yiq(black);
+    background-color: black;
+    border-color: black;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -4451,9 +4451,9 @@ STYLE SWITCHER FOR DEMO
 
 .btn-primary:not([disabled]):not(.disabled):active, .btn-primary:not([disabled]):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
-    color: color-yiq(#2074b1);
-    background-color: #2074b1;
-    border-color: #1e6da6;
+    color: color-yiq(black);
+    background-color: black;
+    border-color: black;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(43, 144, 217, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(43, 144, 217, 0.5);
 }
@@ -4994,7 +4994,7 @@ a {
 }
 
 a:focus, a:hover {
-    color: #1c669c;
+    color: black;
     text-decoration: underline;
 }
 
@@ -5112,7 +5112,7 @@ mark,
 }
 
 a.text-primary:focus, a.text-primary:hover {
-    color: #2074b1 !important;
+    color: black !important;
 }
 
 /*
@@ -5149,7 +5149,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .page-link:focus, .page-link:hover {
-    color: #1c669c;
+    color: black;
     text-decoration: none;
     background-color: #e9ecef;
     border-color: #ddd;
@@ -5236,7 +5236,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 a.bg-primary:focus, a.bg-primary:hover {
-    background-color: #2074b1 !important;
+    background-color: black !important;
 }
 
 .bg-secondary {
@@ -5260,7 +5260,7 @@ a.bg-success:focus, a.bg-success:hover {
 }
 
 a.bg-info:focus, a.bg-info:hover {
-    background-color: #117a8b !important;
+    background-color: black !important;
 }
 
 .bg-warning {
@@ -5332,7 +5332,7 @@ a.bg-dark:focus, a.bg-dark:hover {
 }
 
 a.text-primary:focus, a.text-primary:hover {
-    color: #2074b1 !important;
+    color: black !important;
 }
 
 .text-secondary {
@@ -5399,7 +5399,7 @@ a.text-dark:focus, a.text-dark:hover {
 .badge-primary[href]:focus, .badge-primary[href]:hover {
     color: color-yiq(#f4476b);
     text-decoration: none;
-    background-color: #2074b1;
+    background-color: black;
 }
 
 .badge-secondary {
