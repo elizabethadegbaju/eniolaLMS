@@ -3,9 +3,12 @@
 {% load static %}
 {% block content %}
     <ol class="breadcrumb text-white" style="background-color: #f4476b;">
-        <li class="breadcrumb-item"><a href="user-dashboard.html"><span
-                class="text-white">Home</span></a></li>
-        <li class="breadcrumb-item"><a href="books.html"><span
+        <li class="breadcrumb-item">
+            <a href="{% url 'profile' user.username %}">
+                <span class="text-white">Home</span>
+            </a>
+        </li>
+        <li class="breadcrumb-item"><a href="{% url 'books' %}"><span
                 class="text-white">Library</span></a></li>
     </ol>
     <div>
@@ -61,7 +64,7 @@
                                                     card-title">
                                             {{ book.title }}</h4>
                                         <h6 class="text-center text-muted card-subtitle mb-2">
-                                            {{ book.author }}</h6>
+                                            by {{ book.author }}</h6>
                                     </div>
                                 </div>
                             </div>

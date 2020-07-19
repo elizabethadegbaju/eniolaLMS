@@ -8,8 +8,18 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h1 class="text-center" style="margin: 30px;color: #ffffff;">Welcome back,
-        {{ user.first_name }}!</h1>
+    {% if user.is_staff %}
+        <h1 class="text-center text-white mt-5">
+            {{ student.get_full_name }}
+        </h1>
+        <h4 class="text-center text-white">
+            <em>{{ student.email }}</em>
+        </h4>
+    {% else %}
+        <h1 class="text-center" style="margin: 30px;color: #ffffff;">Welcome
+            back,
+            {{ user.first_name }}!</h1>
+    {% endif %}
     <div style="margin-top: 40px;">
         <div class="container">
             <div class="row">

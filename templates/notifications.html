@@ -1,14 +1,5 @@
 {% extends 'base_nav.html' %}
 {% block content %}
-    <ol class="breadcrumb text-white" style="background-color: #f4476b;">
-        <li class="breadcrumb-item">
-            <a href="{% url 'profile' user.username %}">
-                <span class="text-white">Home</span>
-            </a>
-        </li>
-        <li class="breadcrumb-item"><a href="{% url 'edit_profile' %}"><span
-                class="text-white">Edit Profile</span></a></li>
-    </ol>
     <div class="container">
         <h1 class="text-center" style="color: #f4476b;margin: 30px;">Edit
             Profile</h1>

@@ -161,8 +161,8 @@ def profile(request, username):
             student = User.objects.get(username=username)
             pending_history = Checkout.objects.filter(user=student)
             return render(request, 'user-dashboard.html',
-                          context={'pending_history':
-                                       pending_history})
+                          context={'pending_history': pending_history,
+                                   'student': student})
     elif username == request.user.username:
         student = request.user
         pending_history = Checkout.objects.filter(user=student,
@@ -308,3 +308,8 @@ def edit_profile(request):
         return redirect(profile, user.username)
     else:
         return render(request, 'user-settings.html')
+
+
+def find_user(request):
+    username = request.POST["username"]
+    return redirect(profile, username)

@@ -12,7 +12,9 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('users/<str:username>/', views.profile, name='profile'),
     path('check-due-dates/', views.check_due_dates, name='check_due_dates'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/find/', views.find_user, name='find_user'),
     path('dashboard/authors/add/', views.add_author, name="add_author"),
     path('dashboard/categories/add/', views.add_category, name='add_category'),
     path('dashboard/defaulters/', views.defaulters, name='defaulters'),
@@ -21,5 +23,4 @@ urlpatterns = [
     path('dashboard/books/<int:pk>/edit/', views.edit_book, name='edit_book'),
     path('dashboard/history/<int:pk>/view/', views.history, name='history'),
     path('dashboard/history/<int:pk>/update/', views.update, name='update'),
-    path('edit-profile/', views.edit_profile, name="edit_profile")
 ]

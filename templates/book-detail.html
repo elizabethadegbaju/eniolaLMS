@@ -2,12 +2,21 @@
 {% load static %}
 {% block content %}
     <ol class="breadcrumb text-white" style="background-color: #f4476b;">
-        <li class="breadcrumb-item"><a href="{% url 'books' %}"><span
-                class="text-white">Home</span></a></li>
-        <li class="breadcrumb-item"><a href="{% url 'books' %}"><span
-                class="text-white">Library</span></a></li>
-        <li class="breadcrumb-item"><a href="{% url 'book' book.id %}"><span
-                class="text-white">{{ book.title }}</span></a></li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'profile' user.username %}">
+                <span class="text-white">Home</span>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'books' %}">
+                <span class="text-white">Library</span>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'book' book.id %}">
+                <span class="text-white">{{ book.title }}</span>
+            </a>
+        </li>
     </ol>
     <div class="container-fluid d-flex justify-content-center align-self-center"
          style="margin-top: 30px; margin-bottom: 30px">
