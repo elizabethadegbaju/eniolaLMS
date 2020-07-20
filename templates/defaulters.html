@@ -34,11 +34,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for student in students %}
+                                    {% for default in defaults %}
                                         <tr>
-                                            <td>{{ student.user.first_name }}</td>
-                                            <td>{{ student.user.last_name }}</td>
-                                            <td>{{ student.user.email }}</td>
+                                            <td>{{ default.user.first_name }}</td>
+                                            <td>{{ default.user.last_name }}</td>
+                                            <td>
+                                                <a href="{% url 'profile' default.user.username %}"
+                                                   class="stretched-link"
+                                                >{{ default.user.email }}</a>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>

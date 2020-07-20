@@ -8,7 +8,8 @@ class Student(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     matric_number = models.CharField(max_length=20)
     program = models.CharField(max_length=100)
-    outstanding_fine = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    outstanding_fine = models.DecimalField(default=0, decimal_places=2,
+                                           max_digits=10)
 
     class Meta:
         ordering = ['matric_number']
@@ -29,7 +30,8 @@ def get_upload_path(instance, filename):
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(default="No information available about this author")
+    description = models.TextField(
+        default="No information available about this author")
 
     class Meta:
         ordering = ['name']
@@ -121,16 +123,16 @@ class Checkout(models.Model):
         self.collected_date = datetime.today()
 
 
-class Message(models.Model):
-    name = models.CharField(max_length=100)
-    subject = models.CharField(max_length=200)
-    email = models.EmailField()
-    message = models.TextField()
+class Notification(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.DO_NOTHING)
+    book = models.ForeignKey(to=Book, on_delete=models.CASCADE)
+    checkout = models.ForeignKey(to=Checkout, on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField()
 
     class Meta:
         ordering = ['time']
 
     def __str__(self):
-        return self.subject + " -- " + self.email
+        return self.book.title + " | " + str(self.checkout.collected_date) + \
+               " | " + self.user.get_full_name()

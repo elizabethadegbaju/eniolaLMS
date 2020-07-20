@@ -13,6 +13,7 @@ urlpatterns = [
     path('users/<str:username>/', views.profile, name='profile'),
     path('check-due-dates/', views.check_due_dates, name='check_due_dates'),
     path('edit-profile/', views.edit_profile, name='edit_profile'),
+    path('notifications/', views.notifications, name='notifications'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/find/', views.find_user, name='find_user'),
     path('dashboard/authors/add/', views.add_author, name="add_author"),

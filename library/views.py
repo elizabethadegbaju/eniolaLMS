@@ -11,7 +11,6 @@ from .forms import *
 from .models import *
 
 
-# Create your views here.
 def home(request):
     return render(request, 'registration/login.html')
 
@@ -76,7 +75,8 @@ def dashboard(request):
                                'collections': collections,
                                'overdue_books': overdue_books,
                                'closed_transactions': closed_transactions,
-                               'books': books.count(), 'available': available,
+                               'books': books.count(),
+                               'available': available,
                                'unavailable': unavailable,
                                'outstanding_fines': outstanding_fines,
                                'total_collections': total_collections,
@@ -174,16 +174,6 @@ def profile(request, username):
         redirect('home')
 
 
-def update_student(id):
-    student = Student.objects.get(id=id)
-    pending = Checkout.objects.filter(student=student)
-    fine = 0
-    for item in pending:
-        fine += item.fine
-    student.outstanding_fine = fine
-    student.save()
-
-
 def check_due_dates(request):
     if request.META.get('HTTP_X_APPENGINE_CRON'):
         pending_history = Checkout.objects.filter(closed=False)
@@ -206,15 +196,12 @@ def check_due_dates(request):
                     if duration_collected.days <= 10:
                         pass
                     elif duration_collected.days == 11:
-                        entry.charge_initial_fine()
+                        Notification.objects.create(book=entry.book,
+                                                    user=entry.user,
+                                                    checkout=entry,
+                                                    time=datetime.now())
                         entry.overdue = True
                         entry.save()
-                    else:
-                        entry.charge_subsequent_fines(
-                            duration_collected.days - 10)
-                        entry.overdue = True
-                        entry.save()
-                    update_student(entry.student.id)
     else:
         return HttpResponse(status="403")
     return HttpResponse(status='200')
@@ -247,8 +234,8 @@ def edit_book(request, pk):
 
 @login_required
 def defaulters(request):
-    students = Student.objects.filter(outstanding_fine__gt=0)
-    return render(request, 'defaulters.html', context={'students': students})
+    defaults = Checkout.objects.filter(overdue=True, closed=False)
+    return render(request, 'defaulters.html', context={'defaults': defaults})
 
 
 @login_required
@@ -313,3 +300,12 @@ def edit_profile(request):
 def find_user(request):
     username = request.POST["username"]
     return redirect(profile, username)
+
+
+def notifications(request):
+    student = request.user
+    notifications = list(Notification.objects.filter(user=student).order_by(
+        '-time'))
+    Notification.objects.filter(user=student, read=False).update(read=True)
+    return render(request, 'notifications.html',
+                  {'notifications': notifications})

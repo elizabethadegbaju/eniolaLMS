@@ -11,14 +11,22 @@
                                 class="nav-link active"
                                 href="{% url 'books' %}">Library</a>
                         </li>
-                        <li class="nav-item" role="presentation"><a
-                                class="nav-link custom-navbar" href="#">
-                            Notifications<span class="badge badge-primary"
-                                               style="background-color: #8e2344;">new</span></a>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link custom-navbar"
+                               href="{% url 'notifications' %}">
+                                Notifications
+                                {% if notifications_count > 0 %}
+                                    <span class="badge badge-primary"
+                                          style="background-color: #8e2344;">
+                                        {{ notifications_count }}
+                                    </span>
+                                {% endif %}
+                            </a>
                         </li>
-                        <li class="nav-item" role="presentation"><a
-                                class="nav-link"
-                                href="{% url 'faq' %}">FAQs</a>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link"
+                               href="{% url 'faq' %}"
+                               style="background-color: transparent">FAQs</a>
                         </li>
                     {% else %}
                         <li class="nav-item" role="presentation">
@@ -28,13 +36,15 @@
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item dropdown"><a class="dropdown-toggle
-                    nav-link text-white" data-toggle="dropdown"
-                                                     aria-expanded="false"
-                                                     href="#">
-                        {{ user.get_full_name }}&nbsp;<img
-                            class="dropdown-image" src="
-{% static 'img/avatar.jpg' %}"></a>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link text-white"
+                           data-toggle="dropdown"
+                           aria-expanded="false"
+                           href="#">
+                            {{ user.get_full_name }}&nbsp;
+                            {#                            <img class="dropdown-image"#}
+                            {#                                 src="{% static 'img/avatar.jpg' %}">#}
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right"
                              role="menu"><a class="dropdown-item"
                                             role="presentation"

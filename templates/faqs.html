@@ -1,35 +1,73 @@
 {% extends 'base_nav.html' %}
 {% block content %}
+    <ol class="breadcrumb text-white" style="background-color: #f4476b;">
+        <li class="breadcrumb-item">
+            <a href="{% url 'profile' user.username %}">
+                <span class="text-white">Home</span>
+            </a>
+        </li>
+        <li class="breadcrumb-item"><a href="{% url 'faq' %}"><span
+                class="text-white">Frequently Asked Questions</span></a></li>
+    </ol>
     <div class="container">
-        <h1 class="text-center" style="color: #f4476b;margin: 30px;">Frequently Asked Questions</h1>
+        <h1 class="text-center" style="color: #f4476b;margin: 30px;">Frequently
+            Asked Questions</h1>
         <div role="tablist" id="accordion-1">
             <div class="card">
                 <div class="card-header" role="tab">
-                    <h5 class="mb-0"><a class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="#accordion-1 .item-1">Question one example?</a></h5>
+                    <h5 class="mb-0"><a class="text-dark"
+                                        data-toggle="collapse"
+                                        aria-expanded="true"
+                                        aria-controls="accordion-1 .item-1"
+                                        href="#accordion-1 .item-1">Question
+                        one example?</a></h5>
                 </div>
-                <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+                <div class="collapse show item-1" role="tabpanel"
+                     data-parent="#accordion-1">
                     <div class="card-body">
-                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text">Nullam id dolor id nibh ultricies
+                            vehicula ut id elit. Cras justo odio, dapibus ac
+                            facilisis in, egestas eget quam. Donec id elit non
+                            mi porta gravida at eget metus.</p>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" role="tab">
-                    <h5 class="mb-0"><a class="text-dark" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="#accordion-1 .item-2">This is the second question?</a></h5>
+                    <h5 class="mb-0"><a class="text-dark"
+                                        data-toggle="collapse"
+                                        aria-expanded="false"
+                                        aria-controls="accordion-1 .item-2"
+                                        href="#accordion-1 .item-2">This is the
+                        second question?</a></h5>
                 </div>
-                <div class="collapse item-2" role="tabpanel" data-parent="#accordion-1">
+                <div class="collapse item-2" role="tabpanel"
+                     data-parent="#accordion-1">
                     <div class="card-body">
-                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text">Nullam id dolor id nibh ultricies
+                            vehicula ut id elit. Cras justo odio, dapibus ac
+                            facilisis in, egestas eget quam. Donec id elit non
+                            mi porta gravida at eget metus.</p>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" role="tab">
-                    <h5 class="mb-0"><a class="text-dark" data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="#accordion-1 .item-3">What happens if, by chance, I cannot add a third question?</a></h5>
+                    <h5 class="mb-0"><a class="text-dark"
+                                        data-toggle="collapse"
+                                        aria-expanded="false"
+                                        aria-controls="accordion-1 .item-3"
+                                        href="#accordion-1 .item-3">What
+                        happens if, by chance, I cannot add a third
+                        question?</a></h5>
                 </div>
-                <div class="collapse item-3" role="tabpanel" data-parent="#accordion-1">
+                <div class="collapse item-3" role="tabpanel"
+                     data-parent="#accordion-1">
                     <div class="card-body">
-                        <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                        <p class="card-text">Nullam id dolor id nibh ultricies
+                            vehicula ut id elit. Cras justo odio, dapibus ac
+                            facilisis in, egestas eget quam. Donec id elit non
+                            mi porta gravida at eget metus.</p>
                     </div>
                 </div>
             </div>
