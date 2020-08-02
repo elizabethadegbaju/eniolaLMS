@@ -7,7 +7,8 @@ from library.models import Book
 class BookForm(ModelForm):
     class Meta:
         model = Book
-        fields = ('title', 'author', 'category', 'description', 'quantity_total', 'image')
+        fields = ('title', 'author', 'category', 'description',
+                  'location', 'quantity_total', 'image')
         error_messages = {
             'title': {
                 'max_length': _('The title of this book is too long.'),

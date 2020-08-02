@@ -8,20 +8,12 @@ class Student(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     matric_number = models.CharField(max_length=20)
     program = models.CharField(max_length=100)
-    outstanding_fine = models.DecimalField(default=0, decimal_places=2,
-                                           max_digits=10)
 
     class Meta:
         ordering = ['matric_number']
 
     def __str__(self):
         return self.matric_number
-
-    def pay_fine(self, fine):
-        self.outstanding_fine -= fine
-
-    def increase_fine(self, fine):
-        self.outstanding_fine += fine
 
 
 def get_upload_path(instance, filename):
@@ -54,6 +46,7 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(to=Author, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
+    location = models.CharField(max_length=300)
     description = models.TextField()
     quantity_total = models.IntegerField(default=0)
     quantity_collected = models.IntegerField(default=0)
@@ -96,19 +89,12 @@ class Checkout(models.Model):
     reserved_date = models.DateField(null=True, blank=True)
     collected_date = models.DateField(null=True, blank=True)
     closed_date = models.DateField(null=True, blank=True)
-    fine = models.DecimalField(decimal_places=2, default=0, max_digits=10)
 
     class Meta:
         ordering = ['user']
 
     def __str__(self):
         return self.user.__str__() + " - " + self.book.__str__()
-
-    def charge_initial_fine(self):
-        self.fine = 500
-
-    def charge_subsequent_fines(self, days):
-        self.fine = ((days - 1) * 100) + 500
 
     def close(self):
         self.closed = True
