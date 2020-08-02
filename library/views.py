@@ -49,9 +49,6 @@ def dashboard(request):
         closed_transactions = Checkout.objects.filter(closed=True).filter(
             closed_date__range=(two_weeks_ago, today)).count()
 
-        # Total outstanding fines:
-        outstanding_fines = Checkout.objects.aggregate(Sum('fine'))
-
         total_collections = Checkout.objects.filter(collected=True).count()
         total_overdue = Checkout.objects.filter(overdue=True).count()
         if total_collections != 0:
@@ -78,7 +75,6 @@ def dashboard(request):
                                'books': books.count(),
                                'available': available,
                                'unavailable': unavailable,
-                               'outstanding_fines': outstanding_fines,
                                'total_collections': total_collections,
                                'total_overdue': total_overdue,
                                'overdue_percentage': overdue_percentage})
