@@ -22,14 +22,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'buv(07(g#mr$rpvuhfj%c_%eybdj)z)9ag6b#&naffdk1q4l^m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'eniolalms.uc.r.appspot.com',
+                 'eniolalms.appspot.com']
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'books'
 LOGOUT_REDIRECT_URL = 'login'
+
+# Application definition
+GOOGLE_APPLICATION_CREDENTIALS = os.path.join(BASE_DIR, 'sa.json')
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'eniolalms.appspot.com'
+GS_FILE_OVERWRITE = False
+SECURE_REDIRECT_EXEMPT = ['check-due-dates/.*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,15 +88,36 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eniolaLMS.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# [START db_setup]
+if os.getenv('GAE_APPLICATION', None):
+    # Running on production App Engine, so connect to Google Cloud SQL using
+    # the unix socket at /cloudsql/<your-cloudsql-connection string>
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/eniolalms:us-central1:eniolalms',
+            'USER': 'eniola',
+            'PASSWORD': '',
+            'NAME': 'eniolalms',
+        }
     }
-}
+else:
+    # Running locally so connect to either a local MySQL instance or connect
+    # to Cloud SQL via the proxy.  To start the proxy via command line:
+    #    $ vcloud_sql_proxy -instances=eniolalms:us-central1:eniolalms=tcp:3306
+    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'USER': 'eniola',
+            'PASSWORD': '',
+            'NAME': 'eniolalms',
+        }
+    }
+# [END db_setup]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -125,9 +154,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 MEDIA_ROOT = 'media'
-MEDIA_URL = '/media/'
-# STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'static/'),
-)
+if os.getenv('GAE_APPLICATION', None):
+    STATIC_ROOT = 'static'
+else:
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
+MEDIA_URL = 'https://storage.googleapis.com/eniolalms.appspot.com/'

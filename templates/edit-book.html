@@ -135,7 +135,8 @@
                         </div>
                         <div class="card-body">
 
-                            <form action="{% url 'add_book' %}" method="post"
+                            <form action="{% url 'edit_book' book_item.id %}"
+                                  method="post"
                                   enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-group">

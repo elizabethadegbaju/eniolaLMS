@@ -24,8 +24,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col d-flex justify-content-center
-                    align-items-center"><img class="d-block" style="height:
-                    100%;width: 100%;" src="{{ book.image.url }}"></div>
+                    align-items-center">
+                        <img class="d-block" style="height:
+                    100%;width: 100%;"
+                             src="https://storage.googleapis.com/eniolalms.appspot.com/{{ book.image|urlencode }}">
+                    </div>
                     <div class="col-lg-7">
                         <h4>{{ book.title }}</h4>
                         <h6 class="text-muted mb-2">{{ book.author }}</h6>
@@ -41,6 +44,11 @@
                                role="button"
                                href="{% url 'edit_book'  book.id %}">
                                 <i class="icon-pencil"></i>Edit Details
+                            </a>
+                            <a class="btn btn-outline-dark btn-block"
+                               role="button"
+                               href="{% url 'delete_book'  book.id %}">
+                                <i class="icon-pencil"></i>Delete Book
                             </a>
                         {% else %}
                             {% if available %}

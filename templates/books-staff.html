@@ -71,7 +71,7 @@
                                                     <a class="stretched-link"
                                                        href="{% url 'book' book.id %}">
                                                         <img
-                                                                src="{{ book.image.url }}"
+                                                                src="https://storage.googleapis.com/eniolalms.appspot.com/{{ book.image|urlencode }}"
                                                                 style="height: 100px;">
                                                     </a>
                                                 </div>

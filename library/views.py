@@ -2,7 +2,6 @@ from datetime import timedelta
 
 from django.contrib.auth.views import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage
-from django.db.models import Sum
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -52,7 +51,8 @@ def dashboard(request):
         total_collections = Checkout.objects.filter(collected=True).count()
         total_overdue = Checkout.objects.filter(overdue=True).count()
         if total_collections != 0:
-            overdue_percentage = (total_overdue / total_collections) * 100
+            overdue_percentage_calc = (total_overdue / total_collections) * 100
+            overdue_percentage = round(overdue_percentage_calc, 2)
         else:
             overdue_percentage = 0
 
@@ -217,15 +217,16 @@ def add_book(request):
 
 @login_required
 def edit_book(request, pk):
-    book = Book.objects.get(id=pk)
+    book_item = Book.objects.get(id=pk)
     if request.method == 'POST':
-        form = BookForm(request.POST, request.FILES, instance=book)
+        form = BookForm(request.POST, request.FILES, instance=book_item)
         if form.is_valid():
             form.save()
             return redirect(book, pk)
     else:
-        form = BookForm(instance=book)
-        return render(request, 'edit-book.html', context={'form': form})
+        form = BookForm(instance=book_item)
+        return render(request, 'edit-book.html', context={'form': form,
+                                                          'book_item': book_item})
 
 
 @login_required
@@ -263,11 +264,11 @@ def history(request, pk):
 @login_required
 def update(request, pk):
     entry = Checkout.objects.get(id=pk)
-    if "reserved" in request.POST:
+    if ('reserved' in request.POST) & (entry.reserved != True):
         entry.reserve()
-    if "collected" in request.POST:
+    if ('collected' in request.POST) & (entry.collected != True):
         entry.collect()
-    if "closed" in request.POST:
+    if ('closed' in request.POST) & (entry.closed != True):
         entry.close()
 
     entry.save()
@@ -305,3 +306,19 @@ def notifications(request):
     Notification.objects.filter(user=student, read=False).update(read=True)
     return render(request, 'notifications.html',
                   {'notifications': notifications})
+
+
+def error_404_view(request, exception):
+    data = {"name": "127.0.0.1:8000"}
+    return render(request, '404.html', data)
+
+
+def error_500_view(request):
+    data = {"name": "127.0.0.1:8000"}
+    return render(request, '404.html', data)
+
+
+def delete_book(request, pk):
+    book = Book.objects.get(id=pk)
+    book.delete()
+    return redirect(search)
