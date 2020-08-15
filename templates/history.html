@@ -11,7 +11,8 @@
         <div class="breadcrumb-holder">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Dashboard</a>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'dashboard' %}">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item"><a
                             href="{% url 'book' book.id %}">{{ book.title }}</a>
@@ -92,7 +93,7 @@
                                                             Closed: {{ entry.closed_date|naturalday }}
                                                         </p>
                                                         <button data-toggle="modal"
-                                                                href="#statusModal"
+                                                                data-target="#statusModal{{ entry.id }}"
                                                                 class="btn
                                                                 btn-outline-primary"
                                                                 disabled="">
@@ -100,25 +101,22 @@
                                                         </button>
                                                     {% else %}
                                                         <a data-toggle="modal"
-                                                           href="#statusModal"
+                                                           data-target="#statusModal{{ entry.id }}"
                                                            class="btn btn-outline-primary">Change
                                                             Status</a>
                                                     {% endif %}
-                                                    <div id="statusModal"
-                                                         tabindex="-1"
-                                                         role="dialog"
-                                                         aria-labelledby="exampleModalLabel"
-                                                         aria-hidden="true"
+                                                    <div id="statusModal{{ entry.id }}"
+                                                         tabindex="-1" role="dialog"
+                                                         aria-labelledby="exampleModalLabel" aria-hidden="true"
                                                          class="modal fade text-left">
-                                                        <div role="document"
-                                                             class="modal-dialog">
+                                                        <div role="document" class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 id="exampleModalLabel"
                                                                         class="modal-title">
                                                                         Change
                                                                         Status
-                                                                        - {{ entry.student.matric_number }}</h5>
+                                                                        - {{ entry.user.username }}</h5>
                                                                     <button type="button"
                                                                             data-dismiss="modal"
                                                                             aria-label="Close"
@@ -140,35 +138,35 @@
                                                                     <form action="{% url 'update' entry.id %}"
                                                                           method="post">
                                                                         {% csrf_token %}
-                                                                        <div class="i-checks">
+                                                                        <div class="form-group">
                                                                             <input id="reserved"
                                                                                    name="reserved"
                                                                                    type="checkbox"
                                                                                     {% if entry.reserved %}
-                                                                                   checked=""
+                                                                                   checked
                                                                                     {% endif %}
-                                                                                   class="form-control-custom">
-                                                                            <label for="reserved">Reserved</label>
+                                                                                   class="form-check-inline">
+                                                                            <label for="reserved" class="form-check-label">Reserved</label>
                                                                         </div>
-                                                                        <div class="i-checks">
+                                                                        <div class="form-group">
                                                                             <input id="collected"
                                                                                    name="collected"
                                                                                    type="checkbox"
                                                                                     {% if entry.collected %}
-                                                                                   checked=""
+                                                                                   checked
                                                                                     {% endif %}
-                                                                                   class="form-control-custom">
-                                                                            <label for="collected">Collected</label>
+                                                                                   class="form-check-inline">
+                                                                            <label for="collected" class="form-check-label">Collected</label>
                                                                         </div>
-                                                                        <div class="i-checks">
+                                                                        <div class="form-group">
                                                                             <input id="closed"
                                                                                    name="closed"
                                                                                    type="checkbox"
                                                                                     {% if entry.closed %}
-                                                                                   checked=""
+                                                                                   checked
                                                                                     {% endif %}
-                                                                                   class="form-control-custom">
-                                                                            <label for="closed">Closed</label>
+                                                                                   class="form-check-inline">
+                                                                            <label for="closed" class="form-check-label">Closed</label>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button"
